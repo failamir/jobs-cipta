@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+    Route::post('users/media', 'UsersController@storeMedia')->name('users.storeMedia');
+    Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
     Route::post('users/parse-csv-import', 'UsersController@parseCsvImport')->name('users.parseCsvImport');
     Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
     Route::resource('users', 'UsersController');
@@ -65,6 +67,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('user-alerts/destroy', 'UserAlertsController@massDestroy')->name('user-alerts.massDestroy');
     Route::get('user-alerts/read', 'UserAlertsController@read');
     Route::resource('user-alerts', 'UserAlertsController', ['except' => ['edit', 'update']]);
+
+    // Job Position
+    Route::delete('job-positions/destroy', 'JobPositionController@massDestroy')->name('job-positions.massDestroy');
+    Route::post('job-positions/media', 'JobPositionController@storeMedia')->name('job-positions.storeMedia');
+    Route::post('job-positions/ckmedia', 'JobPositionController@storeCKEditorImages')->name('job-positions.storeCKEditorImages');
+    Route::post('job-positions/parse-csv-import', 'JobPositionController@parseCsvImport')->name('job-positions.parseCsvImport');
+    Route::post('job-positions/process-csv-import', 'JobPositionController@processCsvImport')->name('job-positions.processCsvImport');
+    Route::resource('job-positions', 'JobPositionController');
+
+    // Data Preparation
+    Route::delete('data-preparations/destroy', 'DataPreparationController@massDestroy')->name('data-preparations.massDestroy');
+    Route::post('data-preparations/parse-csv-import', 'DataPreparationController@parseCsvImport')->name('data-preparations.parseCsvImport');
+    Route::post('data-preparations/process-csv-import', 'DataPreparationController@processCsvImport')->name('data-preparations.processCsvImport');
+    Route::resource('data-preparations', 'DataPreparationController');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });

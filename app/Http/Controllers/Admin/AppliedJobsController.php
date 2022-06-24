@@ -9,6 +9,7 @@ use App\Http\Requests\StoreAppliedJobRequest;
 use App\Http\Requests\UpdateAppliedJobRequest;
 use App\Models\AppliedJob;
 use App\Models\Job;
+use App\Models\JobPosition;
 use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -22,13 +23,15 @@ class AppliedJobsController extends Controller
     {
         abort_if(Gate::denies('applied_job_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $appliedJobs = AppliedJob::with(['candidate', 'job'])->get();
+        $appliedJobs = AppliedJob::with(['candidate', 'job', 'applied_position'])->get();
 
         $users = User::get();
 
         $jobs = Job::get();
 
-        return view('admin.appliedJobs.index', compact('appliedJobs', 'jobs', 'users'));
+        $job_positions = JobPosition::get();
+
+        return view('admin.appliedJobs.index', compact('appliedJobs', 'job_positions', 'jobs', 'users'));
     }
 
     public function create()
@@ -39,7 +42,9 @@ class AppliedJobsController extends Controller
 
         $jobs = Job::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.appliedJobs.create', compact('candidates', 'jobs'));
+        $applied_positions = JobPosition::pluck('name_position', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.appliedJobs.create', compact('applied_positions', 'candidates', 'jobs'));
     }
 
     public function store(StoreAppliedJobRequest $request)
@@ -57,9 +62,11 @@ class AppliedJobsController extends Controller
 
         $jobs = Job::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $appliedJob->load('candidate', 'job');
+        $applied_positions = JobPosition::pluck('name_position', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.appliedJobs.edit', compact('appliedJob', 'candidates', 'jobs'));
+        $appliedJob->load('candidate', 'job', 'applied_position');
+
+        return view('admin.appliedJobs.edit', compact('appliedJob', 'applied_positions', 'candidates', 'jobs'));
     }
 
     public function update(UpdateAppliedJobRequest $request, AppliedJob $appliedJob)
@@ -73,7 +80,7 @@ class AppliedJobsController extends Controller
     {
         abort_if(Gate::denies('applied_job_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $appliedJob->load('candidate', 'job');
+        $appliedJob->load('candidate', 'job', 'applied_position');
 
         return view('admin.appliedJobs.show', compact('appliedJob'));
     }

@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => null,
                 'approved'       => 1,
                 'phone_number'   => '',
+                'last_name'      => '',
             ],
         ];
 

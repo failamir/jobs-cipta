@@ -107,6 +107,11 @@
                 {{ trans('cruds.jobAlert.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#job_job_positions" role="tab" data-toggle="tab">
+                {{ trans('cruds.jobPosition.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="job_registration_flows">
@@ -120,6 +125,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="job_job_alerts">
             @includeIf('admin.jobs.relationships.jobJobAlerts', ['jobAlerts' => $job->jobJobAlerts])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="job_job_positions">
+            @includeIf('admin.jobs.relationships.jobJobPositions', ['jobPositions' => $job->jobJobPositions])
         </div>
     </div>
 </div>

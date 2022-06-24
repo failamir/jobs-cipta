@@ -33,6 +33,9 @@
                             {{ trans('cruds.user.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.last_name') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.user.fields.email') }}
                         </th>
                         <th>
@@ -48,11 +51,20 @@
                             {{ trans('cruds.user.fields.phone_number') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.gender') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.age') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
                     <tr>
                         <td>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
@@ -80,6 +92,17 @@
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\User::GENDER_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 </thead>
@@ -94,6 +117,9 @@
                             </td>
                             <td>
                                 {{ $user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->last_name ?? '' }}
                             </td>
                             <td>
                                 {{ $user->email ?? '' }}
@@ -112,6 +138,12 @@
                             </td>
                             <td>
                                 {{ $user->phone_number ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\User::GENDER_SELECT[$user->gender] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $user->age ?? '' }}
                             </td>
                             <td>
                                 @can('user_show')

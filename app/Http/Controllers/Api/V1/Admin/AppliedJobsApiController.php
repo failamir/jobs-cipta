@@ -17,7 +17,7 @@ class AppliedJobsApiController extends Controller
     {
         abort_if(Gate::denies('applied_job_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AppliedJobResource(AppliedJob::with(['candidate', 'job'])->get());
+        return new AppliedJobResource(AppliedJob::with(['candidate', 'job', 'applied_position'])->get());
     }
 
     public function store(StoreAppliedJobRequest $request)
@@ -33,7 +33,7 @@ class AppliedJobsApiController extends Controller
     {
         abort_if(Gate::denies('applied_job_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new AppliedJobResource($appliedJob->load(['candidate', 'job']));
+        return new AppliedJobResource($appliedJob->load(['candidate', 'job', 'applied_position']));
     }
 
     public function update(UpdateAppliedJobRequest $request, AppliedJob $appliedJob)

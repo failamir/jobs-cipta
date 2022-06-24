@@ -33,6 +33,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.user.fields.last_name') }}
+                        </th>
+                        <td>
+                            {{ $user->last_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.user.fields.email') }}
                         </th>
                         <td>
@@ -71,6 +79,30 @@
                         </th>
                         <td>
                             {{ $user->phone_number }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.gender') }}
+                        </th>
+                        <td>
+                            {{ App\Models\User::GENDER_SELECT[$user->gender] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.age') }}
+                        </th>
+                        <td>
+                            {{ $user->age }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.background_experience') }}
+                        </th>
+                        <td>
+                            {!! $user->background_experience !!}
                         </td>
                     </tr>
                 </tbody>

@@ -4,13 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppliedJobsTable extends Migration
+class CreateJobPositionsTable extends Migration
 {
     public function up()
     {
-        Schema::create('applied_jobs', function (Blueprint $table) {
+        Schema::create('job_positions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('status')->nullable();
+            $table->string('name_position')->nullable();
+            $table->longText('description_position')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

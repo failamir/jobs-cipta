@@ -45,6 +45,57 @@
                             {{ trans('cruds.appliedJob.fields.status') }}
                         </th>
                         <th>
+                            {{ trans('cruds.appliedJob.fields.crew_code') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.date_of_entry') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.source') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.applied_position') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.department') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.d_o_b') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.vaccination_yf') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.vaccination_covid_19') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.cid') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.coc') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.rating_able') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.ccm') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.application_form') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.interview_date') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.interview_by') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.interview_result') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.appliedJob.fields.approved_as') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -83,6 +134,99 @@
                             </select>
                         </td>
                         <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                            <select class="search">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach($job_positions as $key => $item)
+                                    <option value="{{ $item->name_position }}">{{ $item->name_position }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::DEPARTMENT_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::VACCINATION_YF_RADIO as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::VACCINATION_COVID_19_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::CID_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::RATING_ABLE_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::CCM_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::APPLICATION_FORM_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
+                            <select class="search" strict="true">
+                                <option value>{{ trans('global.all') }}</option>
+                                @foreach(App\Models\AppliedJob::INTERVIEW_RESULT_SELECT as $key => $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 </thead>
@@ -109,6 +253,57 @@
                             </td>
                             <td>
                                 {{ App\Models\AppliedJob::STATUS_SELECT[$appliedJob->status] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->crew_code ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->date_of_entry ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->source ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->applied_position->name_position ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::DEPARTMENT_SELECT[$appliedJob->department] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->d_o_b ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::VACCINATION_YF_RADIO[$appliedJob->vaccination_yf] ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::VACCINATION_COVID_19_SELECT[$appliedJob->vaccination_covid_19] ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::CID_SELECT[$appliedJob->cid] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->coc ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::RATING_ABLE_SELECT[$appliedJob->rating_able] ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::CCM_SELECT[$appliedJob->ccm] ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::APPLICATION_FORM_SELECT[$appliedJob->application_form] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->interview_date ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->interview_by ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\AppliedJob::INTERVIEW_RESULT_SELECT[$appliedJob->interview_result] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $appliedJob->approved_as ?? '' }}
                             </td>
                             <td>
                                 @can('applied_job_show')

@@ -210,6 +210,46 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 51,
+                'title' => 'job_position_create',
+            ],
+            [
+                'id'    => 52,
+                'title' => 'job_position_edit',
+            ],
+            [
+                'id'    => 53,
+                'title' => 'job_position_show',
+            ],
+            [
+                'id'    => 54,
+                'title' => 'job_position_delete',
+            ],
+            [
+                'id'    => 55,
+                'title' => 'job_position_access',
+            ],
+            [
+                'id'    => 56,
+                'title' => 'data_preparation_create',
+            ],
+            [
+                'id'    => 57,
+                'title' => 'data_preparation_edit',
+            ],
+            [
+                'id'    => 58,
+                'title' => 'data_preparation_show',
+            ],
+            [
+                'id'    => 59,
+                'title' => 'data_preparation_delete',
+            ],
+            [
+                'id'    => 60,
+                'title' => 'data_preparation_access',
+            ],
+            [
+                'id'    => 61,
                 'title' => 'profile_password_edit',
             ],
         ];
