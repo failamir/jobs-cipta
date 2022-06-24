@@ -21,6 +21,10 @@ class UpdateUserRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'last_name' => [
+                'string',
+                'nullable',
+            ],
             'email' => [
                 'required',
                 'unique:users,email,' . request()->route('user')->id,
@@ -35,6 +39,12 @@ class UpdateUserRequest extends FormRequest
             'phone_number' => [
                 'string',
                 'nullable',
+            ],
+            'age' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

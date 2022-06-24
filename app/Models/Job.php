@@ -62,6 +62,11 @@ class Job extends Model implements HasMedia
         return $this->hasMany(JobAlert::class, 'job_id', 'id');
     }
 
+    public function jobJobPositions()
+    {
+        return $this->hasMany(JobPosition::class, 'job_id', 'id');
+    }
+
     public function getDatePostedAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

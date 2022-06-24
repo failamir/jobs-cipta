@@ -62,7 +62,7 @@ class JobsController extends Controller
     {
         abort_if(Gate::denies('job_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $job->load('jobRegistrationFlows', 'jobAppliedJobs', 'jobMeetings', 'jobJobAlerts');
+        $job->load('jobRegistrationFlows', 'jobAppliedJobs', 'jobMeetings', 'jobJobAlerts', 'jobJobPositions');
 
         return view('admin.jobs.show', compact('job'));
     }
