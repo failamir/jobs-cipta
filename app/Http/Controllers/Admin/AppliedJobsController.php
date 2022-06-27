@@ -14,6 +14,7 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AppliedJobsController extends Controller
 {
@@ -23,8 +24,13 @@ class AppliedJobsController extends Controller
     {
         abort_if(Gate::denies('applied_job_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $appliedJobs = AppliedJob::with(['candidate', 'job', 'applied_position'])->get();
-
+        if(Auth::id() == 1){
+            $appliedJobs = AppliedJob::with(['candidate', 'job', 'applied_position'])->get();    
+        }else{
+            $appliedJobs = AppliedJob::with(['candidate', 'job', 'applied_position'])
+            ->where('candidate_id',Auth::id())->get();    
+        }
+        
         $users = User::get();
 
         $jobs = Job::get();
@@ -45,6 +51,43 @@ class AppliedJobsController extends Controller
         $applied_positions = JobPosition::pluck('name_position', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.appliedJobs.create', compact('applied_positions', 'candidates', 'jobs'));
+    }
+
+    public function apply(Request $request)
+    {
+        // abort_if(Gate::denies('applied_job_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('applied_job_create'), redirect('/register'));
+        // var_dump($request->route('id'));
+        // $data = array_merge($request->all(),['approved' => true]);
+        $data = array(
+            'candidate_id' => Auth::id(),
+            'job_id' => $request->route('id')
+        );
+        // var_dump($data);
+        
+        $appliedJob = AppliedJob::create($data);
+        // var_dump($appliedJob);
+        // die;
+        $candidates = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $jobs = Job::pluck('title', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $applied_positions = JobPosition::pluck('name_position', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        if(Auth::id() == 1){
+            $appliedJobs = AppliedJob::with(['candidate', 'job', 'applied_position'])->get();    
+        }else{
+            $appliedJobs = AppliedJob::with(['candidate', 'job', 'applied_position'])
+            ->where('candidate_id',Auth::id())->get();    
+        }
+        
+        $users = User::get();
+
+        $jobs = Job::get();
+
+        $job_positions = JobPosition::get();
+
+        return view('admin.appliedJobs.index', compact('appliedJobs', 'job_positions', 'jobs', 'users'));
     }
 
     public function store(StoreAppliedJobRequest $request)

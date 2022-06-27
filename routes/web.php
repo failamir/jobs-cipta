@@ -1,6 +1,8 @@
 <?php
 
-Route::redirect('/', '/login');
+// Route::redirect('/', '/login');
+Route::get('/', 'JobsController@index')->name('home');
+Route::get('/apply/{id}', 'Admin\AppliedJobsController@apply')->name('applied-jobs.apply');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -46,6 +48,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('applied-jobs/parse-csv-import', 'AppliedJobsController@parseCsvImport')->name('applied-jobs.parseCsvImport');
     Route::post('applied-jobs/process-csv-import', 'AppliedJobsController@processCsvImport')->name('applied-jobs.processCsvImport');
     Route::resource('applied-jobs', 'AppliedJobsController');
+    // Route::post('apply', 'AppliedJobsController@create')->name('applied-jobs.apply');
 
     // Resume
     Route::delete('resumes/destroy', 'ResumeController@massDestroy')->name('resumes.massDestroy');

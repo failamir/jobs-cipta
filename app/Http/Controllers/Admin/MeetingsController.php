@@ -12,6 +12,7 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class MeetingsController extends Controller
 {
@@ -19,7 +20,14 @@ class MeetingsController extends Controller
     {
         abort_if(Gate::denies('meeting_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $meetings = Meeting::with(['job', 'candidate'])->get();
+        if(Auth::id() == 1){
+            $meetings = Meeting::with(['candidate', 'job'])->get();    
+        }else{
+            $meetings = Meeting::with(['candidate', 'job'])
+            ->where('candidate_id',Auth::id())->get();    
+        }
+
+        // $meetings = Meeting::with(['job', 'candidate'])->get();
 
         return view('admin.meetings.index', compact('meetings'));
     }

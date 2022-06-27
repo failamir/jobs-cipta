@@ -105,6 +105,54 @@
                             {!! $user->background_experience !!}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.resume_cv') }}
+                        </th>
+                        <td>
+                            @if($user->resume_cv)
+                                <a href="{{ $user->resume_cv->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.visa') }}
+                        </th>
+                        <td>
+                            @if($user->visa)
+                                <a href="{{ $user->visa->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.passport') }}
+                        </th>
+                        <td>
+                            @if($user->passport)
+                                <a href="{{ $user->passport->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.bst_ccm') }}
+                        </th>
+                        <td>
+                            @if($user->bst_ccm)
+                                <a href="{{ $user->bst_ccm->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

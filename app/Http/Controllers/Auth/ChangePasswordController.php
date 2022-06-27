@@ -7,15 +7,27 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use Gate;
 use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\MediaLibrary\Models\Media;
 
 class ChangePasswordController extends Controller
 {
     public function edit()
     {
         abort_if(Gate::denies('profile_password_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('auth.passwords.edit');
+        $roles = Role::pluck('title', 'id');
+
+        $user = auth()->user();
+        $user->load('roles');
+
+        // return view('admin.users.edit', compact('roles', 'user'));
+
+        return view('auth.passwords.edit', compact('roles', 'user'));
     }
 
     public function update(UpdatePasswordRequest $request)

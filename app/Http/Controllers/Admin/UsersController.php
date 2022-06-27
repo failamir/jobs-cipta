@@ -24,7 +24,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['roles'])->get();
+        $users = User::with(['roles', 'media'])->get();
 
         $roles = Role::get();
 
@@ -44,6 +44,22 @@ class UsersController extends Controller
     {
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
+        if ($request->input('resume_cv', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('resume_cv'))))->toMediaCollection('resume_cv');
+        }
+
+        if ($request->input('visa', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('visa'))))->toMediaCollection('visa');
+        }
+
+        if ($request->input('passport', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('passport'))))->toMediaCollection('passport');
+        }
+
+        if ($request->input('bst_ccm', false)) {
+            $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('bst_ccm'))))->toMediaCollection('bst_ccm');
+        }
+
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $user->id]);
         }
@@ -66,6 +82,49 @@ class UsersController extends Controller
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
+        if ($request->input('resume_cv', false)) {
+            if (!$user->resume_cv || $request->input('resume_cv') !== $user->resume_cv->file_name) {
+                if ($user->resume_cv) {
+                    $user->resume_cv->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('resume_cv'))))->toMediaCollection('resume_cv');
+            }
+        } elseif ($user->resume_cv) {
+            $user->resume_cv->delete();
+        }
+
+        if ($request->input('visa', false)) {
+            if (!$user->visa || $request->input('visa') !== $user->visa->file_name) {
+                if ($user->visa) {
+                    $user->visa->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('visa'))))->toMediaCollection('visa');
+            }
+        } elseif ($user->visa) {
+            $user->visa->delete();
+        }
+
+        if ($request->input('passport', false)) {
+            if (!$user->passport || $request->input('passport') !== $user->passport->file_name) {
+                if ($user->passport) {
+                    $user->passport->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('passport'))))->toMediaCollection('passport');
+            }
+        } elseif ($user->passport) {
+            $user->passport->delete();
+        }
+
+        if ($request->input('bst_ccm', false)) {
+            if (!$user->bst_ccm || $request->input('bst_ccm') !== $user->bst_ccm->file_name) {
+                if ($user->bst_ccm) {
+                    $user->bst_ccm->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('bst_ccm'))))->toMediaCollection('bst_ccm');
+            }
+        } elseif ($user->bst_ccm) {
+            $user->bst_ccm->delete();
+        }
 
         return redirect()->route('admin.users.index');
     }

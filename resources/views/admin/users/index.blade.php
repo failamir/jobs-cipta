@@ -57,6 +57,18 @@
                             {{ trans('cruds.user.fields.age') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.resume_cv') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.visa') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.passport') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.user.fields.bst_ccm') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -104,6 +116,14 @@
                         </td>
                         <td>
                         </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -144,6 +164,34 @@
                             </td>
                             <td>
                                 {{ $user->age ?? '' }}
+                            </td>
+                            <td>
+                                @if($user->resume_cv)
+                                    <a href="{{ $user->resume_cv->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                @if($user->visa)
+                                    <a href="{{ $user->visa->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                @if($user->passport)
+                                    <a href="{{ $user->passport->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                @if($user->bst_ccm)
+                                    <a href="{{ $user->bst_ccm->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 @can('user_show')

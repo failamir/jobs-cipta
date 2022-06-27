@@ -6,10 +6,12 @@
             <a class="btn btn-success" href="{{ route('admin.applied-jobs.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.appliedJob.title_singular') }}
             </a>
+            @if(Auth::id() == 1)
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>
             @include('csvImport.modal', ['model' => 'AppliedJob', 'route' => 'admin.applied-jobs.parseCsvImport'])
+            @endif
         </div>
     </div>
 @endcan

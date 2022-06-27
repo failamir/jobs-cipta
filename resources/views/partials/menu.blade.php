@@ -21,7 +21,7 @@
             </a>
         </li>
         @can('user_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }} {{ request()->is("admin/data-preparations*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-users c-sidebar-nav-icon">
 
@@ -59,16 +59,6 @@
                             </a>
                         </li>
                     @endcan
-                    @can('data_preparation_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.data-preparations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/data-preparations") || request()->is("admin/data-preparations/*") ? "c-active" : "" }}">
-                                <i class="fa-fw table_view c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.dataPreparation.title') }}
-                            </a>
-                        </li>
-                    @endcan
                 </ul>
             </li>
         @endcan
@@ -93,6 +83,15 @@
             </li>
         @endcan
         @can('applied_job_access')
+        <li class="c-sidebar-nav-item">
+            <a href="{{ url("/") }}" class="c-sidebar-nav-link {{ request()->is("admin/applied-jobs") || request()->is("admin/applied-jobs/*") ? "c-active" : "" }}">
+                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
+
+                </i>
+                Find Job
+            </a>
+        </li>
+
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.applied-jobs.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/applied-jobs") || request()->is("admin/applied-jobs/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
@@ -101,8 +100,9 @@
                     {{ trans('cruds.appliedJob.title') }}
                 </a>
             </li>
+            
         @endcan
-        @can('resume_access')
+        {{-- @can('resume_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.resumes.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/resumes") || request()->is("admin/resumes/*") ? "c-active" : "" }}">
                     <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
@@ -111,7 +111,7 @@
                     {{ trans('cruds.resume.title') }}
                 </a>
             </li>
-        @endcan
+        @endcan --}}
         @can('meeting_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route("admin.meetings.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/meetings") || request()->is("admin/meetings/*") ? "c-active" : "" }}">

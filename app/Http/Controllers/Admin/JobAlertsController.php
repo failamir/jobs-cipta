@@ -13,6 +13,7 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class JobAlertsController extends Controller
 {
@@ -21,8 +22,15 @@ class JobAlertsController extends Controller
     public function index()
     {
         abort_if(Gate::denies('job_alert_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        if(Auth::id() == 1){
+            $jobAlerts = JobAlert::with(['candidate', 'job'])->get();    
+        }else{
+            $jobAlerts = JobAlert::with(['candidate', 'job'])
+            ->where('candidate_id',Auth::id())->get();    
+        }
 
-        $jobAlerts = JobAlert::with(['candidate', 'job'])->get();
+        // $jobAlerts = JobAlert::with(['candidate', 'job'])->get();
 
         $users = User::get();
 
