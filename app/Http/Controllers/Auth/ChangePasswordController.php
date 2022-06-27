@@ -37,11 +37,55 @@ class ChangePasswordController extends Controller
         return redirect()->route('profile.password.edit')->with('message', __('global.change_password_success'));
     }
 
-    public function updateProfile(UpdateProfileRequest $request)
+    public function updateProfile(UpdateProfileRequest $request, User $user)
     {
         $user = auth()->user();
+        $user->update($request->all());
+        // $user->roles()->sync($request->input('roles', []));
+        if ($request->input('resume_cv', false)) {
+            if (!$user->resume_cv || $request->input('resume_cv') !== $user->resume_cv->file_name) {
+                if ($user->resume_cv) {
+                    $user->resume_cv->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('resume_cv'))))->toMediaCollection('resume_cv');
+            }
+        } elseif ($user->resume_cv) {
+            $user->resume_cv->delete();
+        }
 
-        $user->update($request->validated());
+        if ($request->input('visa', false)) {
+            if (!$user->visa || $request->input('visa') !== $user->visa->file_name) {
+                if ($user->visa) {
+                    $user->visa->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('visa'))))->toMediaCollection('visa');
+            }
+        } elseif ($user->visa) {
+            $user->visa->delete();
+        }
+
+        if ($request->input('passport', false)) {
+            if (!$user->passport || $request->input('passport') !== $user->passport->file_name) {
+                if ($user->passport) {
+                    $user->passport->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('passport'))))->toMediaCollection('passport');
+            }
+        } elseif ($user->passport) {
+            $user->passport->delete();
+        }
+
+        if ($request->input('bst_ccm', false)) {
+            if (!$user->bst_ccm || $request->input('bst_ccm') !== $user->bst_ccm->file_name) {
+                if ($user->bst_ccm) {
+                    $user->bst_ccm->delete();
+                }
+                $user->addMedia(storage_path('tmp/uploads/' . basename($request->input('bst_ccm'))))->toMediaCollection('bst_ccm');
+            }
+        } elseif ($user->bst_ccm) {
+            $user->bst_ccm->delete();
+        }
+        // $user->update($request->validated());
 
         return redirect()->route('profile.password.edit')->with('message', __('global.update_profile_success'));
     }

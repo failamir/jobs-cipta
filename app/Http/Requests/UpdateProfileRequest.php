@@ -31,6 +31,35 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name'  => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->id()],
+            // 'name' => [
+            //     'string',
+            //     'required',
+            // ],
+            'last_name' => [
+                'string',
+                'nullable',
+            ],
+            // 'email' => [
+            //     'required',
+            //     'unique:users,email,' . request()->route('user')->id,
+            // ],
+            // 'roles.*' => [
+            //     'integer',
+            // ],
+            // 'roles' => [
+            //     'required',
+            //     'array',
+            // ],
+            'phone_number' => [
+                'string',
+                'nullable',
+            ],
+            'age' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
         ];
     }
 }

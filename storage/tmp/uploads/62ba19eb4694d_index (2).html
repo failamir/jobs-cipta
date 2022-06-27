@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    label {
+        display: block;
+        margin-bottom: 10px;
+        margin-top : 10px;
+    }
+
+    button {
+        display: block;
+        margin: 10px 0;
+    }
+</style>
+<body>
+    <form action="" method="get">
+        <label for="nama">Nama (required, at least 5 character) </label>
+        <input type="text" name="nama" id="nama">
+        <span class="info-nama"></span>
+
+        <label for="umur">Umur (minimal 17) </label>
+        <input type="number" name="umur" id="umur">
+        <span class="info-umur"></span>
+
+        <label for="email">Email (required) </label>
+        <input type="email" name="email" id="email">
+        <span class="info-email"></span>
+
+        <label for="password">Password </label>
+        <input type="password" name="password" id="password">
+        <input type="checkbox" id="show"> Show
+
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+        const nama = document.getElementById('nama');
+        const umur = document.getElementById('umur');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const show = document.getElementById('show');
+        const button = document.querySelector('button');
+        const infoNama = document.querySelector('.info-nama');
+        const infoUmur = document.querySelector('.info-umur');
+        const infoEmail = document.querySelector('.info-email');
+
+        show.addEventListener('click', function() {
+            if (show.checked) {
+                password.type = 'text';
+            } else {
+                password.type = 'password';
+            }
+        });
+        
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (nama.value == '') {
+                infoNama.innerHTML = 'Masukan nama anda';
+            } else if (nama.value.length < 5) {
+                infoNama.innerHTML = 'Nama harus memuat minimal 5 karakter';
+            } else {
+                infoNama.innerHTML = '';
+            }
+
+            if (umur.value == '') {
+                infoUmur.innerHTML = 'Masukan umur anda';
+            } else if (umur.value < 17) {
+                infoUmur.innerHTML = 'Umur minimal 17 tahun';
+            } else {
+                infoUmur.innerHTML = '';
+            }
+
+            if (email.value == '') {
+                infoEmail.innerHTML = 'Masukan email anda';
+            } else if (!email.value.includes('@')) {
+                infoEmail.innerHTML = 'Email yang digunakan harus memuat karakter @';
+            } else {
+                infoEmail.innerHTML = '';
+            }
+        });
+    </script>
+</body>
+</html>
