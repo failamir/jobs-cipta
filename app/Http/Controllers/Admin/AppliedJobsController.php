@@ -125,7 +125,7 @@ class AppliedJobsController extends Controller
             $jobAlert = JobAlert::create([
                 'candidate_id' => $request->input('candidate_id'),
                 'job_id' => $request->input('job_id'),
-                'status' => 'read'
+                'status' => 'unread'
             ]);
             // var_dump($jobAlert);
             // echo 0000;
@@ -139,7 +139,7 @@ class AppliedJobsController extends Controller
             $jobAlert = JobAlert::create([
                 'candidate_id' => $request->input('candidate_id'),
                 'job_id' => $request->input('job_id'),
-                'status' => 'unread'
+                'status' => 'read'
             ]);
             // var_dump($jobAlert);
             // echo 0000;
