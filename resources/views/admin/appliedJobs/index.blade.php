@@ -3,10 +3,10 @@
 @can('applied_job_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
+            @if(Auth::id() == 1)
             <a class="btn btn-success" href="{{ route('admin.applied-jobs.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.appliedJob.title_singular') }}
             </a>
-            @if(Auth::id() == 1)
             <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
                 {{ trans('global.app_csvImport') }}
             </button>

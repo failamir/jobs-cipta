@@ -52,6 +52,7 @@ class JobAlertsController extends Controller
 
     public function store(StoreJobAlertRequest $request)
     {
+        // var_dump($request->all());die;
         $jobAlert = JobAlert::create($request->all());
 
         return redirect()->route('admin.job-alerts.index');

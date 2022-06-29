@@ -33,6 +33,16 @@ class JobsController extends Controller
         return view('admin.jobs.create');
     }
 
+    public function detail(Request $request)
+    {
+        // abort_if(Gate::denies('job_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        // $job->load('jobRegistrationFlows', 'jobAppliedJobs', 'jobMeetings', 'jobJobAlerts', 'jobJobPositions');
+        // var_dump($id);die;
+        $job = Job::find($request->route('id'))->first();
+        return view('detail', compact('job'));
+    }
+
     public function store(StoreJobRequest $request)
     {
         $job = Job::create($request->all());

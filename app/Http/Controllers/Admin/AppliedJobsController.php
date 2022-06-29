@@ -9,6 +9,7 @@ use App\Http\Requests\StoreAppliedJobRequest;
 use App\Http\Requests\UpdateAppliedJobRequest;
 use App\Models\AppliedJob;
 use App\Models\Job;
+use App\Models\JobAlert;
 use App\Models\JobPosition;
 use App\Models\User;
 use Gate;
@@ -115,6 +116,34 @@ class AppliedJobsController extends Controller
     public function update(UpdateAppliedJobRequest $request, AppliedJob $appliedJob)
     {
         $appliedJob->update($request->all());
+        if($request->input('status') == 'pass'){
+            // $data = array(
+            //     'candidate_id' => Auth::id(),
+            //     'job_id' => $request->input('job_id'),
+            //     'status' => 'unread'
+            // );
+            $jobAlert = JobAlert::create([
+                'candidate_id' => $request->input('candidate_id'),
+                'job_id' => $request->input('job_id'),
+                'status' => 'diterima'
+            ]);
+            // var_dump($jobAlert);
+            // echo 0000;
+        }
+        if($request->input('status') == 'fail'){
+            // $data = array(
+            //     'candidate_id' => Auth::id(),
+            //     'job_id' => $request->input('job_id'),
+            //     'status' => 'unread'
+            // );
+            $jobAlert = JobAlert::create([
+                'candidate_id' => $request->input('candidate_id'),
+                'job_id' => $request->input('job_id'),
+                'status' => 'ditolak'
+            ]);
+            // var_dump($jobAlert);
+            // echo 0000;
+        }
 
         return redirect()->route('admin.applied-jobs.index');
     }
