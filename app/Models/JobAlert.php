@@ -10,8 +10,8 @@ class JobAlert extends Model
     use SoftDeletes;
 
     public const STATUS_SELECT = [
-        'read'   => 'read',
-        'unread' => 'unread',
+        'read'   => 'diterima',
+        'unread' => 'ditolak',
     ];
 
     public $table = 'job_alerts';
